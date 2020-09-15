@@ -20,9 +20,6 @@ class SingleResponsibilityController extends Controller
         if (!$output) {
             return response()->json(['error' => 'Wave not found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json([
-            'id' => $output->getId(),
-            'title' => $output->getTitle(),
-        ], Response::HTTP_OK);
+        return response()->json($output, Response::HTTP_OK);
     }
 }

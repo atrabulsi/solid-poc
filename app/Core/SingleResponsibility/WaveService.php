@@ -5,14 +5,17 @@ namespace App\Core\SingleResponsibility;
 class WaveService
 {
     private WaveRepository $repository;
+    private Transformer $transformer;
 
-    public function __construct(WaveRepository $repository)
+    public function __construct(WaveRepository $repository, Transformer $transformer)
     {
         $this->repository = $repository;
+        $this->transformer = $transformer;
     }
 
-    public function getWaveById(int $id): ?Wave
+    public function getWaveById(int $id): ?array
     {
-        return $this->repository->getWaveById($id);
+        $wave = $this->repository->getWaveById($id);
+        return $wave ? $this->transformer->transform($wave) : null;
     }
 }
