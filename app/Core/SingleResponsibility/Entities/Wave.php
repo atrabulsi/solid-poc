@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\SingleResponsibility;
+namespace App\Core\SingleResponsibility\Entities;
 
 class Wave
 {

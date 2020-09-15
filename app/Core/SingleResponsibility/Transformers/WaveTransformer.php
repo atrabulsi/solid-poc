@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Core\SingleResponsibility;
+namespace App\Core\SingleResponsibility\Transformers;
 
-class Transformer
+
+use App\Core\SingleResponsibility\Entities\Wave;
+
+class WaveTransformer
 {
     public function transform(Wave $wave): array
     {
