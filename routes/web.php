@@ -16,3 +16,5 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/solid/single-responsibility/{id}', 'SingleResponsibilityController@get');
