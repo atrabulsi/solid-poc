@@ -25,7 +25,7 @@ To view the swagger file, you can request:
 This repo includes a workshop for several points:
 1. Single Responsibility Principle
 
-   The single responsibility principle states that each class must have one purpose and one purpose only.
+   The single responsibility principle states that each class must have one, and only one, reason to change.
    ```
     Controller: SingleResponsibilityController
     Bounded Context: App\Core\SingleResponsibility
@@ -47,9 +47,16 @@ This repo includes a workshop for several points:
     
 2. Dependency Inversion Principle
    
+   The dependency inversion principle states that we should depend on abstractions, not on concretions.
+   * High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces).
+   * Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
+
+   A low level module (aka infrastructure class) interacts with the database, reads a file from a disk, stores a value in the cache, etc.
+   A high level module includes complex business logic. 
+   The high level modules own and define the contract (the interface), and the low level modules implement it.
+
    In this exercise, we 'll take the previous example and build on top of it to see how we can use the dependency inversion principle.
-   The dependency inversion principle states that we should depend on abstraction, not concrete classes.
-   High-level modules should not depend on low-level modules. Both should depend on abstraction, (i.e. interfaces)
+   You'll find two routes, one controller, and one service.
    
   ```
    Controller: DependencyInversionController
@@ -61,8 +68,16 @@ This repo includes a workshop for several points:
    * `WaveTransformerInterface` This interface includes all functions any Wave Transformer should implement
    
    As you can see in the service `App\Core\DependencyInversion\Services\WaveService` we injected both interfaces instead of injecting concrete classes.
-   Then in the service provider `RepositoryProvider` we specify which repository to associate with the interface by default (using the IoC Container of Laravel)
+   Then in the service provider `RepositoryProvider` we specify which repository to associate with the interface by default (using the IoC Container of Laravel, which is not a must for dependency inversion, but it makes your like easy).
+   
    If you want to use a MySQL repository, a Redis repository, or an ElasticSearch repository, you can change the config file `repository.php`
    
-   At the same time, the WaveService accepts an argument that is of type WaveTransformerInterface. We created two transformers, one that converts to an array, and the other one to convert to HTML. We could create one for XML and other formats if needed.
-   We have two routes, one of them requests the JSON format and the other one requests the HTML format
+   At the same time, the WaveService accepts an argument that is of type WaveTransformerInterface. We created two transformers, one converts the wave object to an array, and the other one converts it to HTML. We could also create a transformer for XML and other formats if needed.
+   
+   We have two routes, one of them requests the JSON format, and the other one requests the HTML format.
+
+## References
+[Robert C Martin - aka Uncle Bob: The Single Responsibility Principle](https://www.youtube.com/watch?v=Gt0M_OHKhQE)
+(you may want to increase the video speed to 1.25)
+
+[SOLID Principles made easy](https://hackernoon.com/solid-principles-made-easy-67b1246bcdf)
