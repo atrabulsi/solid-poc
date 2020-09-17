@@ -16,11 +16,20 @@ By default, the app can be accessed by requesting:
 To view the swagger file, you can request:
 `http://localhost:8083/docs/swagger`
 
+## How to use this repo
+* First, setup the containers on your machine following the instructions above
+* Then read the swagger file to know what APIs to use. They're all GET requests, you can simply request them using your browser
+* Read the next section which includes the workshops in this repo
+
 ## Workshops
 This repo includes a workshop for several points:
 1. Single Responsibility Principle
 
    The single responsibility principle states that each class must have one purpose and one purpose only.
+   ```
+    Controller: SingleResponsibilityController
+    Bounded Context: App\Core\SingleResponsibility
+   ```
    To illustrate it in this workshop, you'll find three routes:
     * /solid/sr-no-cache/{id}
       * This route will return a hard-coded wave with ID 1 (any other ID will return a 404)
@@ -41,3 +50,19 @@ This repo includes a workshop for several points:
    In this exercise, we 'll take the previous example and build on top of it to see how we can use the dependency inversion principle.
    The dependency inversion principle states that we should depend on abstraction, not concrete classes.
    High-level modules should not depend on low-level modules. Both should depend on abstraction, (i.e. interfaces)
+   
+  ```
+   Controller: DependencyInversionController
+   Bounded Context: App\Core\DependencyInversion
+  ```
+
+   You can see we created two interfaces:
+   * `WaveRepositoryInterface` This interface includes all functions any Wave Repository must implement
+   * `WaveTransformerInterface` This interface includes all functions any Wave Transformer should implement
+   
+   As you can see in the service `App\Core\DependencyInversion\Services\WaveService` we injected both interfaces instead of injecting concrete classes.
+   Then in the service provider `RepositoryProvider` we specify which repository to associate with the interface by default (using the IoC Container of Laravel)
+   If you want to use a MySQL repository, a Redis repository, or an ElasticSearch repository, you can change the config file `repository.php`
+   
+   At the same time, the WaveService accepts an argument that is of type WaveTransformerInterface. We created two transformers, one that converts to an array, and the other one to convert to HTML. We could create one for XML and other formats if needed.
+   We have two routes, one of them requests the JSON format and the other one requests the HTML format

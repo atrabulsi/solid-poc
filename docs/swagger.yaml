@@ -9,7 +9,7 @@ servers:
     description: 'Local'
 
 paths:
-  /solid/sr-no-cache/{id}:
+  /solid/sr/no-cache/{id}:
     get:
       tags:
         - "Single Responsibility Principle"
@@ -29,7 +29,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Wave'
 
-  /solid/sr-with-cache-in-service/{id}:
+  /solid/sr/with-cache-in-service/{id}:
     get:
       tags:
         - "Single Responsibility Principle"
@@ -49,11 +49,51 @@ paths:
               schema:
                 $ref: '#/components/schemas/Wave'
 
-  /solid/sr-with-cacheable-repo/{id}:
+  /solid/sr/with-cacheable-repo/{id}:
     get:
       tags:
         - "Single Responsibility Principle"
       summary: "Get one wave based on the ID, with no caching"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the wave"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+
+  /solid/di/json/{id}:
+    get:
+      tags:
+        - "Dependency Inversion Principle"
+      summary: "Get one wave in JSON format using dependency inversion"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the wave"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+
+  /solid/di/html/{id}:
+    get:
+      tags:
+        - "Dependency Inversion Principle"
+      summary: "Get one wave in HTML format using dependency inversion"
       parameters:
         - name: "id"
           in: "path"

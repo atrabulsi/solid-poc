@@ -17,6 +17,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/solid/sr-no-cache/{id}', 'SingleResponsibilityController@getWithoutCache');
-$router->get('/solid/sr-with-cache-in-service/{id}', 'SingleResponsibilityController@getWithCacheInService');
-$router->get('/solid/sr-with-cacheable-repo/{id}', 'SingleResponsibilityController@getWithCacheableRepo');
+$router->get('/solid/sr/no-cache/{id}', 'SingleResponsibilityController@getWithoutCache');
+$router->get('/solid/sr/with-cache-in-service/{id}', 'SingleResponsibilityController@getWithCacheInService');
+$router->get('/solid/sr/with-cacheable-repo/{id}', 'SingleResponsibilityController@getWithCacheableRepo');
+
+$router->get('/solid/di/json/{id}', 'DependencyInversionController@getWave');
+$router->get('/solid/di/html/{id}', 'DependencyInversionController@getWaveAsHtml');

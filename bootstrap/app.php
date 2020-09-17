@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('swagger-lume');
+$app->configure('repository');
 
 /*
 |--------------------------------------------------------------------------
@@ -97,6 +98,7 @@ $app->configure('swagger-lume');
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\CacheProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
+$app->register(\App\Providers\RepositoryProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
