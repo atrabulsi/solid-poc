@@ -20,7 +20,7 @@ class WaveCacheableRepository
 
     public function getWaveById(int $id): ?Wave
     {
-        $key = 'wave:' . $id;
+        $key = 'wave:sr:' . $id;
         $wave = $this->cache->get($key);
         if ($wave) {
             $wave = unserialize($wave);

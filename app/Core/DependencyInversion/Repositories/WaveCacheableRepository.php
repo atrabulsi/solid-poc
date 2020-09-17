@@ -21,7 +21,7 @@ class WaveCacheableRepository implements WaveRepositoryInterface
 
     public function getWaveById(int $id): ?Wave
     {
-        $key = 'wave:' . $id;
+        $key = 'wave:di:' . $id;
         $wave = $this->cache->get($key);
         if ($wave) {
             $wave = unserialize($wave);
