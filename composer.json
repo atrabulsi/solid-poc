@@ -6,8 +6,10 @@
     "type": "project",
     "require": {
         "php": "^7.3",
-        "laravel/lumen-framework": "^8.0",
-        "predis/predis": "^1.1"
+        "darkaonline/swagger-lume": "7.*",
+        "laravel/lumen-framework": "7",
+        "predis/predis": "^1.1",
+        "zircote/swagger-php": "3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",

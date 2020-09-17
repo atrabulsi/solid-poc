@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  description: "This is the workshop swagger file"
+  title: "Workshop"
+  version: 1.0.0
+
+servers:
+  - url: 'http://localhost:8083'
+    description: 'Local'
+
+paths:
+  /solid/sr-no-cache/{id}:
+    get:
+      tags:
+        - "Single Responsibility Principle"
+      summary: "Get one wave based on the ID, with no caching"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the wave"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+
+  /solid/sr-with-cache-in-service/{id}:
+    get:
+      tags:
+        - "Single Responsibility Principle"
+      summary: "Get one wave based on the ID, with no caching"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the wave"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+
+  /solid/sr-with-cacheable-repo/{id}:
+    get:
+      tags:
+        - "Single Responsibility Principle"
+      summary: "Get one wave based on the ID, with no caching"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the wave"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wave'
+
+components:
+  schemas:
+    Wave:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          example: "1"
+          description: The ID of the wave
+        title:
+          type: "string"
+          example: "Test wave"
+          description: The title of the wave
