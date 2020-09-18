@@ -109,7 +109,73 @@ paths:
               schema:
                 $ref: '#/components/schemas/Wave'
 
+  /ddd/waves:
+    post:
+      tags:
+        - "Domain Driven Design"
+      summary: "Create a wave (if name = error, you'll get a database connection error)"
+      requestBody:
+        $ref: "#/components/requestBodies/Wave"
+      responses:
+        '201':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wave"
+        '400':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /ddd/waves/{id}:
+    get:
+      tags:
+        - "Domain Driven Design"
+      summary: "Get a wave (If ID = 10, you'll get a database connection error)"
+      parameters:
+        - name: "id"
+          in: "query"
+          description: "ID of the wave to retrieve"
+          required: true
+          schema:
+            type: "integer"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Wave"
+        '404':
+          description: "Bad request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
 components:
+  requestBodies:
+    Wave:
+      content:
+        application/json:
+          schema:
+            type: "object"
+            required:
+              - "name"
+            properties:
+              name:
+                type: "string"
+                description: "The name of the wave"
+                example: "Black Friday 2020"
+              startDate:
+                type: "string"
+                format: date-time
+              endDate:
+                type: "string"
+                format: date-time
   schemas:
     Wave:
       type: "object"
@@ -122,3 +188,18 @@ components:
           type: "string"
           example: "Test wave"
           description: The title of the wave
+        startDate:
+          type: "string"
+          format: date-time
+        endDate:
+          type: "string"
+          format: date-time
+        status:
+          type: "string"
+          enum: [draft, scheduled, live, ended]
+    Error:
+      type: "object"
+      properties:
+        error:
+          type: "string"
+          example: "The start date must be before the end date"

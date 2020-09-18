@@ -23,3 +23,6 @@ $router->get('/solid/sr/with-cacheable-repo/{id}', 'SingleResponsibilityControll
 
 $router->get('/solid/di/json/{id}', 'DependencyInversionController@getWave');
 $router->get('/solid/di/html/{id}', 'DependencyInversionController@getWaveAsHtml');
+
+$router->post('/ddd/waves', 'DomainDrivenDesignController@createWave');
+$router->get('/ddd/waves/{id:[0-9]+}', 'DomainDrivenDesignController@getWave');

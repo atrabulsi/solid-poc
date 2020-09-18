@@ -25,5 +25,8 @@ class RepositoryProvider extends ServiceProvider
                 return app(WaveRepository::class);
             }
         });
+        $this->app->singleton(\App\Core\DDD\Domain\Interfaces\WaveRepositoryInterface::class, function(){
+            return app(\App\Core\DDD\Infrastructure\Repositories\WaveRepository::class);
+        });
     }
 }
