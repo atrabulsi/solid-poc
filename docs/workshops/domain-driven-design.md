@@ -28,7 +28,7 @@ With hexagonal architecture, we want to divide our service into three layers:
 [The swagger file can be found here](http://localhost:8083/docs/swagger)
 
 We have two routes: one to create a wave (POST) and one to retrieve a wave (GET). The waves are all stored in Redis for 1 hour.
-You will see 4 main layers in this workshop: controllers, application, domain, and infrastructure.
+You will see 4 main layers in this workshop: controllers, application, domain, and infrastructure. Each layer has one responsibility, and we must not mix those layers together.
 
 ### 1. Controllers
 We'll start with the controller: Controllers in DDD ARE NOT part of the bounded context. They are called "adapters" in Hexagonal architecture.
@@ -96,10 +96,18 @@ The logic to orchestrate the interaction between those objects does not belong t
 Interacting with multiple domain objects in the application layer is a code smell, because that means the Handler knows about business logic.
 So the answer is to use a domain service, that is completely stateless, and it can orchestrate the interaction between different objects.
 
-### Infrastructure
+### 4. Infrastructure
+The infrastructure layer is responsible for dealing with anything outside the bounded context. Its responsibilities include:
+* Persisting and retrieving objects from the database.
+* Caching objects in Redis/Memcache/etc.
+* Calling another microservice.
+* Calling another bounded context in the same microservice.
 
+The infrastructure layer is a low-level module (according to the Dependency Inversion Principle) and as a result, we must always inject it through abstraction (interfaces).
 
-## Concepts we see in DDD
+The infrastructure layer is the only layer in the bounded context that can depend on other libraries/framework. For example, we will definitely not write our own ORM or Redis client in order to be framework agnostic, we can simply use an existing one.
+
+## Building Blocks of DDD
 
 ### Application layer
 | Concept | Meaning |
